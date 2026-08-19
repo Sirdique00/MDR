@@ -2,64 +2,62 @@ const botClient=window.supabase.createClient('https://bopezesfrmdxiagvvyyh.supab
 const botPage=document.getElementById('page-bots');
 const botEscape=value=>String(value??'').replace(/[&<>\'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 function botSession(){return typeof window.__sadeeqConsoleSession==='function'?window.__sadeeqConsoleSession():null}
+function injectBotStyles(){
+ if(document.getElementById('sadeeq-bot-styles'))return;
+ const style=document.createElement('style');style.id='sadeeq-bot-styles';style.textContent=`
+ .bot-module{animation:botPageIn .5s ease both}.bot-create-card{position:relative;overflow:hidden}.bot-create-card:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at 0 0,rgba(141,114,255,.14),transparent 32%),radial-gradient(circle at 100% 100%,rgba(212,107,226,.08),transparent 30%);pointer-events:none}.bot-form-inner{position:relative;z-index:1}.bot-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.bot-field{display:flex!important;flex-direction:column!important;gap:8px!important;min-width:0}.bot-field.full{grid-column:1/-1}.bot-field span{display:flex;align-items:center;gap:8px;color:#aeb8d0;font-size:11px;font-weight:700;letter-spacing:.03em}.bot-field span i{font-style:normal;color:#9b8cff;font-size:13px}.bot-field input,.bot-field textarea{display:block!important;width:100%!important;min-height:48px!important;border:1px solid rgba(139,124,255,.18)!important;background:linear-gradient(145deg,rgba(5,10,25,.92),rgba(9,16,34,.78))!important;color:#f7f8ff!important;border-radius:14px!important;padding:13px 14px!important;outline:none!important;font:inherit!important;font-size:13px!important;line-height:1.5!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 8px 25px rgba(0,0,0,.12)!important;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease,background .2s ease!important}.bot-field textarea{min-height:150px!important;resize:vertical!important}.bot-field input:hover,.bot-field textarea:hover{border-color:rgba(141,114,255,.35)!important}.bot-field input:focus,.bot-field textarea:focus{border-color:rgba(141,114,255,.75)!important;background:linear-gradient(145deg,rgba(8,13,31,.98),rgba(14,20,45,.9))!important;box-shadow:0 0 0 3px rgba(141,114,255,.10),0 0 28px rgba(141,114,255,.08)!important;transform:translateY(-1px)!important}.bot-field input::placeholder,.bot-field textarea::placeholder{color:#5f6b84!important}.bot-limit-wrap{position:relative}.bot-limit-wrap input{padding-right:70px!important}.bot-limit-suffix{position:absolute;right:12px;bottom:12px;color:#68758f;font-size:9px;letter-spacing:.08em;text-transform:uppercase;pointer-events:none}.bot-submit-row{grid-column:1/-1;display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:3px}.bot-submit{position:relative;overflow:hidden;min-width:170px!important;padding:14px 22px!important;border-radius:13px!important;background:linear-gradient(100deg,#5a39e8,#8737ed 55%,#a848d8)!important;box-shadow:0 12px 30px rgba(103,54,240,.25)!important;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important}.bot-submit:before{content:"";position:absolute;top:0;bottom:0;width:60px;left:-80px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-18deg);animation:botShimmer 3s ease-in-out infinite}.bot-submit:hover{transform:translateY(-2px)!important;box-shadow:0 16px 38px rgba(103,54,240,.36)!important;filter:brightness(1.08)}.bot-submit:active{transform:translateY(0)!important}.bot-submit:disabled{transform:none!important;filter:none!important}.bot-submit.loading{cursor:wait}.bot-submit.loading:after{content:"";display:inline-block;width:13px;height:13px;margin-left:9px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;vertical-align:-2px;animation:spin .7s linear infinite}.bot-feedback-modern{animation:feedbackIn .25s ease both}.bot-info-card{position:relative;overflow:hidden;min-height:100%;background:linear-gradient(145deg,rgba(10,20,43,.9),rgba(8,13,29,.78))!important}.bot-info-card:after{content:"";position:absolute;width:180px;height:180px;right:-80px;top:-80px;border-radius:50%;background:rgba(141,114,255,.12);filter:blur(25px);animation:botGlow 5s ease-in-out infinite}.bot-id-visual{position:relative;z-index:1;margin:22px 0 14px!important;padding:18px!important;border-color:rgba(255,194,26,.2)!important;background:linear-gradient(145deg,rgba(255,194,26,.06),rgba(141,114,255,.05))!important;box-shadow:0 0 30px rgba(255,194,26,.06)!important;animation:idPulse 3s ease-in-out infinite}.bot-auto-points{position:relative;z-index:1;display:grid;gap:9px;margin-top:20px}.bot-auto-point{display:flex;align-items:center;gap:9px;color:#8894ad;font-size:10px}.bot-auto-point b{width:24px;height:24px;display:grid;place-items:center;border-radius:8px;background:rgba(67,224,163,.06);border:1px solid rgba(67,224,163,.12);color:#8ce8c4;font-size:11px}.bot-section-enter{animation:botSection .55s ease both}.bot-list-panel-modern{animation:botSection .65s ease both}.bot-card-modern{transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease!important}.bot-card-modern:hover{transform:translateY(-2px);border-color:rgba(141,114,255,.28)!important;background:rgba(10,18,38,.7)!important;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+ @keyframes botPageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes botSection{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes feedbackIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}@keyframes botGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.15);opacity:1}}@keyframes idPulse{0%,100%{box-shadow:0 0 24px rgba(255,194,26,.04)}50%{box-shadow:0 0 34px rgba(255,194,26,.11)}}@keyframes botShimmer{0%{left:-80px}45%,100%{left:120%}}
+ @media(max-width:900px){.bot-form-grid{grid-template-columns:1fr}.bot-field.full{grid-column:auto}.bot-submit-row{grid-column:auto;justify-content:stretch}.bot-submit{width:100%}}@media(prefers-reduced-motion:reduce){.bot-module,.bot-section-enter,.bot-list-panel-modern,.bot-feedback-modern,.bot-submit:before,.bot-info-card:after,.bot-id-visual{animation:none!important}}
+ `;document.head.appendChild(style);
+}
 function botUi(){
-  if(!botPage)return;
-  botPage.innerHTML=`<div class="module-head"><div><span class="section-label">BOT MANAGEMENT</span><h2>Create Bot</h2><p>Ƙirƙiri sabon bot daga Owner Console. Dukkan configuration ana adanawa a Supabase.</p></div><button id="bot-refresh" class="secondary-btn" type="button">↻ Refresh</button></div>
-  <div id="bot-feedback" class="inline-feedback hidden" role="alert"></div>
-  <div class="bot-create-grid">
-    <section class="form-panel">
-      <div class="panel-heading"><div><span class="section-label">NEW BOT</span><h3>Create a bot</h3></div></div>
-      <form id="create-bot-form" novalidate>
-        <label>Bot Name<input id="bot-name" maxlength="120" required autocomplete="off" placeholder="e.g. ABC Company Assistant"></label>
-        <label>Instructions<textarea id="bot-instructions" maxlength="20000" rows="6" placeholder="Bayanan da bot zai yi amfani da su wajen bada amsa..."></textarea></label>
-        <label>Bot Rules<textarea id="bot-rules" maxlength="20000" rows="5" placeholder="Dokoki da iyakokin bot..."></textarea></label>
-        <label>Chat Limit<input id="bot-chat-limit" type="number" min="1" max="1000000" value="100" required></label>
-        <button id="create-bot-submit" class="primary-btn" type="submit">Create Bot</button>
-      </form>
-    </section>
-    <aside class="info-panel"><span class="section-label">AUTOMATIC</span><h3>Bot ID</h3><p>Da zarar an ƙirƙiri bot, backend zai samar da unique 9-character Bot ID ta atomatik. Ba frontend ba ne ke ƙirƙirar ID.</p><div class="bot-id-example">SDQ67hd8i</div><small>Misali ne kawai; ainihin ID zai bambanta kuma ba zai maimaitu ba.</small></aside>
+ if(!botPage)return;
+ injectBotStyles();
+ botPage.innerHTML=`<div class="module-head bot-module"><div><span class="section-label">BOT MANAGEMENT</span><h2>Create Bot</h2><p>Ƙirƙiri sabon bot daga Owner Console. Dukkan configuration ana adanawa a Supabase.</p></div><button id="bot-refresh" class="secondary-btn" type="button">↻ Refresh</button></div>
+  <div id="bot-feedback" class="inline-feedback hidden bot-feedback-modern" role="alert"></div>
+  <div class="bot-create-grid bot-section-enter">
+    <section class="form-panel bot-create-card"><div class="bot-form-inner"><div class="panel-heading"><div><span class="section-label">NEW BOT</span><h3>Create a bot</h3></div><span class="secure-pill">OWNER ONLY</span></div>
+      <form id="create-bot-form" novalidate><div class="bot-form-grid">
+        <label class="bot-field full"><span><i>✦</i> Bot Name</span><input id="bot-name" maxlength="120" required autocomplete="off" placeholder="e.g. ABC Company Assistant"></label>
+        <label class="bot-field full"><span><i>⌘</i> Instructions</span><textarea id="bot-instructions" maxlength="20000" rows="6" placeholder="Bayanan da bot zai yi amfani da su wajen bada amsa..."></textarea></label>
+        <label class="bot-field full"><span><i>◈</i> Bot Rules</span><textarea id="bot-rules" maxlength="20000" rows="5" placeholder="Dokoki da iyakokin bot..."></textarea></label>
+        <label class="bot-field bot-limit-wrap"><span><i>◷</i> Chat Limit</span><input id="bot-chat-limit" type="number" min="1" max="1000000" value="100" required><em class="bot-limit-suffix">requests</em></label>
+        <div class="bot-submit-row"><button id="create-bot-submit" class="primary-btn bot-submit" type="submit">Create Bot</button></div>
+      </div></form></div></section>
+    <aside class="info-panel bot-info-card bot-section-enter"><span class="section-label">AUTOMATIC</span><h3>Bot ID</h3><p>Da zarar an ƙirƙiri bot, backend zai samar da unique 9-character Bot ID ta atomatik. Ba frontend ba ne ke ƙirƙirar ID.</p><div class="bot-id-example bot-id-visual">SDQ67hd8i</div><small>Misali ne kawai; ainihin ID zai bambanta kuma ba zai maimaitu ba.</small><div class="bot-auto-points"><div class="bot-auto-point"><b>✓</b><span>Unique 9-character ID</span></div><div class="bot-auto-point"><b>✓</b><span>Saved securely in Supabase</span></div><div class="bot-auto-point"><b>✓</b><span>Owner session required</span></div></div></aside>
   </div>
-  <section class="bots-list-panel"><div class="panel-heading"><div><span class="section-label">ALL BOTS</span><h3>Your bots</h3></div><span id="bot-count" class="count-pill">0</span></div><div id="bot-list" class="bot-list"><div class="empty-state">Ana loda bots...</div></div></section>`;
+  <section class="bots-list-panel bot-list-panel-modern"><div class="panel-heading"><div><span class="section-label">ALL BOTS</span><h3>Your bots</h3></div><span id="bot-count" class="count-pill">0</span></div><div id="bot-list" class="bot-list"><div class="empty-state">Ana loda bots...</div></div></section>`;
   document.getElementById('create-bot-form')?.addEventListener('submit',createBot);
   document.getElementById('bot-refresh')?.addEventListener('click',loadBots);
   loadBots();
 }
 function feedback(message,type='error'){
- const el=document.getElementById('bot-feedback');if(!el)return;el.textContent=message;el.className=`inline-feedback ${type}`;el.classList.remove('hidden');
+ const el=document.getElementById('bot-feedback');if(!el)return;el.textContent=message;el.className=`inline-feedback ${type} bot-feedback-modern`;el.classList.remove('hidden');
 }
 async function createBot(event){
  event.preventDefault();
  const session=botSession(); if(!session){feedback('Owner session ta ƙare. Ka sake login.');return;}
- const submit=document.getElementById('create-bot-submit'); submit.disabled=true; submit.textContent='Creating...';
+ const submit=document.getElementById('create-bot-submit'); submit.disabled=true;submit.classList.add('loading');submit.textContent='Creating...';
  const name=document.getElementById('bot-name').value.trim();
  const instructions=document.getElementById('bot-instructions').value;
  const rules=document.getElementById('bot-rules').value;
  const limit=Number(document.getElementById('bot-chat-limit').value);
- if(!name){feedback('Bot Name ya zama dole.');submit.disabled=false;submit.textContent='Create Bot';return;}
- if(!Number.isInteger(limit)||limit<1||limit>1000000){feedback('Chat Limit ba daidai ba ne.');submit.disabled=false;submit.textContent='Create Bot';return;}
+ if(!name){feedback('Bot Name ya zama dole.');submit.disabled=false;submit.classList.remove('loading');submit.textContent='Create Bot';return;}
+ if(!Number.isInteger(limit)||limit<1||limit>1000000){feedback('Chat Limit ba daidai ba ne.');submit.disabled=false;submit.classList.remove('loading');submit.textContent='Create Bot';return;}
  const {data,error}=await botClient.rpc('create_owner_bot',{p_session:session,p_name:name,p_instructions:instructions,p_rules:rules,p_chat_limit:limit});
- if(error||!data){feedback(error?.message==='INVALID_OWNER_SESSION'?'Owner session ta ƙare. Ka sake login.':'An kasa ƙirƙirar bot. Gwada kuma.');submit.disabled=false;submit.textContent='Create Bot';return;}
- feedback(`✓ Bot created successfully — ${data.bot_id}`,'success');
- event.target.reset();document.getElementById('bot-chat-limit').value=100;
- await loadBots();
- submit.disabled=false;submit.textContent='Create Bot';
+ if(error||!data){feedback(error?.message==='INVALID_OWNER_SESSION'?'Owner session ta ƙare. Ka sake login.':'An kasa ƙirƙirar bot. Gwada kuma.');submit.disabled=false;submit.classList.remove('loading');submit.textContent='Create Bot';return;}
+ feedback(`✓ Bot created successfully — ${data.bot_id}`,'success');event.target.reset();document.getElementById('bot-chat-limit').value=100;await loadBots();submit.disabled=false;submit.classList.remove('loading');submit.textContent='Create Bot';
 }
 async function loadBots(){
  const root=document.getElementById('bot-list'),count=document.getElementById('bot-count');if(!root)return;const session=botSession();if(!session){root.innerHTML='<div class="empty-state">Owner session ta ƙare. Ka sake login.</div>';return;}
  root.innerHTML='<div class="empty-state">Ana loda bots...</div>';
  const {data,error}=await botClient.rpc('list_owner_bots',{p_session:session});
  if(error){root.innerHTML='<div class="empty-state">Ba a iya loda bots ba. Gwada Refresh.</div>';return;}
- const bots=Array.isArray(data)?data:[];if(count)count.textContent=bots.length;
- if(!bots.length){root.innerHTML='<div class="empty-state">Babu bot tukuna. Yi amfani da Create Bot a sama.</div>';return;}
- root.innerHTML=bots.map(bot=>`<article class="bot-card"><div class="bot-card-main"><div class="bot-avatar">✦</div><div><h4>${botEscape(bot.name)}</h4><p>Bot ID: <code>${botEscape(bot.bot_id)}</code></p><small>Created ${botEscape(new Date(bot.created_at).toLocaleString())}</small></div></div><div class="bot-card-meta"><span class="status-pill ${bot.status==='active'?'active':''}">${botEscape(bot.status)}</span><span>Limit: ${Number(bot.chat_limit).toLocaleString()}</span></div></article>`).join('');
+ const bots=Array.isArray(data)?data:[];if(count)count.textContent=bots.length;if(!bots.length){root.innerHTML='<div class="empty-state">Babu bot tukuna. Yi amfani da Create Bot a sama.</div>';return;}
+ root.innerHTML=bots.map(bot=>`<article class="bot-card bot-card-modern"><div class="bot-card-main"><div class="bot-avatar">✦</div><div><h4>${botEscape(bot.name)}</h4><p>Bot ID: <code>${botEscape(bot.bot_id)}</code></p><small>Created ${botEscape(new Date(bot.created_at).toLocaleString())}</small></div></div><div class="bot-card-meta"><span class="status-pill ${bot.status==='active'?'active':''}">${botEscape(bot.status)}</span><span>Limit: ${Number(bot.chat_limit).toLocaleString()}</span></div></article>`).join('');
 }
 function showBotsPage(){
- document.querySelectorAll('.page').forEach(p=>{p.classList.add('hidden');p.classList.remove('active-page')});
- botPage.classList.remove('hidden');botPage.classList.add('active-page');
- document.querySelectorAll('.nav-item[data-page]').forEach(i=>i.classList.toggle('active',i.dataset.page==='bots'));
- const title=document.getElementById('page-title');if(title)title.textContent='Bots';
- if(typeof window.closeSidebar==='function')window.closeSidebar();
- if(!botPage.dataset.ready){botPage.dataset.ready='1';botUi();}else loadBots();
+ document.querySelectorAll('.page').forEach(p=>{p.classList.add('hidden');p.classList.remove('active-page')});botPage.classList.remove('hidden');botPage.classList.add('active-page');document.querySelectorAll('.nav-item[data-page]').forEach(i=>i.classList.toggle('active',i.dataset.page==='bots'));const title=document.getElementById('page-title');if(title)title.textContent='Bots';if(typeof window.closeSidebar==='function')window.closeSidebar();if(!botPage.dataset.ready){botPage.dataset.ready='1';botUi();}else loadBots();
 }
 document.addEventListener('click',e=>{const item=e.target.closest('[data-page="bots"]');if(item){e.preventDefault();e.stopImmediatePropagation();showBotsPage();}},true);
 window.showSadeeqBots=showBotsPage;
