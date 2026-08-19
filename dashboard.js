@@ -21,8 +21,40 @@ async function unlock(){
   if(error||typeof data!=='string'||data.length!==64){deny();return;}
   consoleSession=data;
   loading.classList.add('hidden');consoleRoot.classList.remove('hidden');
+  renderHomeShell();
   initConsole();
   await loadDashboard();
+}
+
+function renderHomeShell(){
+  const page=$('page-home');
+  if(!page)return;
+  page.innerHTML=`
+    <div class="hero-panel">
+      <div><span class="section-label">OWNER CONSOLE</span><h2>Maraba da dawowa, Owner.</h2><p>Wannan ita ce uwar garken Sadeeq. Daga nan zaka ga halin system, bots, websites, requests da muhimman abubuwan da suka faru a system.</p></div>
+      <div class="hero-logo-wrap"><img src="./chagi-logo.svg" alt="Chagi"></div>
+    </div>
+    <div id="dashboard-error" class="inline-error hidden" role="alert"></div>
+    <div class="stats-grid stats-grid-6">
+      <article class="stat-card"><span>System</span><strong id="system-status">—</strong><small id="system-status-note">Ana loda status...</small></article>
+      <article class="stat-card"><span>Security</span><strong id="security-status">—</strong><small id="security-status-note">Ana tabbatarwa...</small></article>
+      <article class="stat-card"><span>Storage</span><strong id="storage-status">—</strong><small>System source of truth</small></article>
+      <article class="stat-card"><span>Bots</span><strong id="bots-count">0</strong><small>Total bots</small></article>
+      <article class="stat-card"><span>Websites</span><strong id="websites-count">0</strong><small>Connected websites</small></article>
+      <article class="stat-card"><span>Requests Today</span><strong id="requests-today">0</strong><small>Recorded requests</small></article>
+    </div>
+    <div class="dashboard-grid">
+      <section class="next-panel command-panel"><div><span class="section-label">COMMAND CENTER</span><h3>Quick actions</h3><p>Waɗannan hanyoyin suna kai ka zuwa modules ɗin system. Za mu cika kowane module a Level ɗinsa tare da real Supabase actions.</p></div>
+        <div class="quick-actions">
+          <button class="quick-action" data-page="bots" type="button"><b>＋</b><span>Create / manage bots</span></button>
+          <button class="quick-action" data-page="sadeeq" type="button"><b>✦</b><span>Open Sadeeq AI</span></button>
+          <button class="quick-action" data-page="keys" type="button"><b>⌘</b><span>Manage API keys</span></button>
+          <button class="quick-action" data-page="logs" type="button"><b>◷</b><span>View audit logs</span></button>
+        </div>
+      </section>
+      <section class="activity-panel"><div class="panel-heading"><div><span class="section-label">LIVE OVERVIEW</span><h3>Recent activity</h3></div><span id="audit-count" class="count-pill">0 today</span></div><div id="recent-logs" class="activity-list"><div class="empty-state">Ana loda audit activity...</div></div></section>
+    </div>
+    <div class="system-bar"><div><span class="section-label">SYSTEM HEALTH</span><strong id="health-message">Ana tabbatar da dukkan services...</strong></div><button id="refresh-dashboard" class="secondary-btn" type="button">↻ Refresh</button></div>`;
 }
 
 function setText(id,value){const el=$(id);if(el)el.textContent=value}
@@ -51,8 +83,7 @@ function renderLogs(logs){
   const root=$('recent-logs');if(!root)return;
   if(!logs.length){root.innerHTML='<div class="empty-state">Babu audit activity tukuna.</div>';return}
   root.innerHTML=logs.map(log=>{
-    const date=new Date(log.created_at);
-    const when=Number.isNaN(date.getTime())?String(log.created_at||''):date.toLocaleString();
+    const date=new Date(log.created_at);const when=Number.isNaN(date.getTime())?String(log.created_at||''):date.toLocaleString();
     const target=log.target_type?`${log.target_type}${log.target_id?` • ${log.target_id}`:''}`:'system';
     return `<article class="activity-item"><div class="activity-icon">◷</div><div class="activity-main"><strong>${escapeHtml(log.action||'SYSTEM_EVENT')}</strong><span>${escapeHtml(target)}</span></div><time>${escapeHtml(when)}</time></article>`;
   }).join('');
@@ -82,17 +113,10 @@ function initConsole(){
   function openSidebar(){sidebar.classList.add('open');backdrop.classList.add('show')}
   function closeSidebar(){sidebar.classList.remove('open');backdrop.classList.remove('show')}
   window.closeSidebar=closeSidebar;
-  $('open-sidebar')?.addEventListener('click',openSidebar);
-  $('close-sidebar')?.addEventListener('click',closeSidebar);
-  backdrop?.addEventListener('click',closeSidebar);
+  $('open-sidebar')?.addEventListener('click',openSidebar);$('close-sidebar')?.addEventListener('click',closeSidebar);backdrop?.addEventListener('click',closeSidebar);
   $('refresh-dashboard')?.addEventListener('click',async()=>{const b=$('refresh-dashboard');b.disabled=true;b.textContent='↻ Loading...';await loadDashboard();b.disabled=false;b.textContent='↻ Refresh'});
   select('home');
 }
 
-window.addEventListener('pagehide',()=>{
-  if(!consoleSession)return;
-  const body=JSON.stringify({p_session:consoleSession});
-  navigator.sendBeacon(`${SUPABASE_URL}/rest/v1/rpc/revoke_owner_console_session`,new Blob([body],{type:'application/json'}));
-});
-
+window.addEventListener('pagehide',()=>{if(!consoleSession)return;const body=JSON.stringify({p_session:consoleSession});navigator.sendBeacon(`${SUPABASE_URL}/rest/v1/rpc/revoke_owner_console_session`,new Blob([body],{type:'application/json'}));});
 unlock();
