@@ -21,7 +21,7 @@
     <img src="./chagi-logo.svg" alt="Chagi" class="gate-logo">
     <div class="gate-brand">CHAGI ⚡ SADEEQ</div>
     <h1>Access denied</h1>
-    <p>Wannan Owner Console ne kawai. Ticket din shiga bai inganta ba ko ya kare.</p>
+    <p id="denied-message">Wannan Owner Console ne kawai. Ticket din shiga bai inganta ba ko ya kare.</p>
     <a class="primary-link" href="./auth.html#login">Komawa Login</a>
   </div>
 
@@ -47,7 +47,7 @@
       </nav>
 
       <div class="sidebar-bottom">
-        <button class="nav-item" data-page="settings" type="button"><span class="nav-icon">⚙</span><span>Settings</span></button>
+        <button class="nav-item" data-page="account" type="button"><span class="nav-icon">♙</span><span>Account & Security</span></button>
         <div class="owner-chip"><span class="status-dot"></span><div><strong>Owner only</strong><small>Secure console</small></div></div>
       </div>
     </aside>
@@ -83,6 +83,8 @@
         </div>
       </section>
 
+      <section id="page-account" class="page hidden" aria-label="Account and Security"></section>
+
       <section id="page-placeholder" class="page">
         <div class="placeholder-panel">
           <span class="section-label">MODULE</span>
@@ -96,5 +98,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./dashboard.js"></script>
+  <script src="./account-security.js"></script>
 </body>
 </html>
