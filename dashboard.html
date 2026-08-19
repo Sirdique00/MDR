@@ -66,32 +66,30 @@
           <div>
             <span class="section-label">OWNER CONSOLE</span>
             <h2>Maraba da dawowa, Owner.</h2>
-            <p>Wannan shi ne ginshikin sarrafa Sirdique AI Hub. Daga nan za mu gina bots, instructions, API keys, audit logs da sauran tsarin gudanarwa.</p>
+            <p>Wannan ita ce uwar garken Sadeeq. Daga nan zaka ga halin system, bots, websites, requests da muhimman abubuwan da suka faru a system.</p>
           </div>
           <div class="hero-logo-wrap"><img src="./chagi-logo.svg" alt="Chagi"></div>
         </div>
-
-        <div class="stats-grid">
-          <article class="stat-card"><span>System</span><strong>ONLINE</strong><small>Owner console active</small></article>
-          <article class="stat-card"><span>Security</span><strong>PROTECTED</strong><small>One-time console gate</small></article>
-          <article class="stat-card"><span>Storage</span><strong>SUPABASE</strong><small>System source of truth</small></article>
+        <div id="dashboard-error" class="inline-error hidden" role="alert"></div>
+        <div class="stats-grid stats-grid-6">
+          <article class="stat-card"><span>System</span><strong id="system-status">—</strong><small id="system-status-note">Ana loda status...</small></article>
+          <article class="stat-card"><span>Security</span><strong id="security-status">—</strong><small id="security-status-note">Ana tabbatarwa...</small></article>
+          <article class="stat-card"><span>Storage</span><strong id="storage-status">—</strong><small>System source of truth</small></article>
+          <article class="stat-card"><span>Bots</span><strong id="bots-count">0</strong><small>Total bots</small></article>
+          <article class="stat-card"><span>Websites</span><strong id="websites-count">0</strong><small>Connected websites</small></article>
+          <article class="stat-card"><span>Requests Today</span><strong id="requests-today">0</strong><small>Recorded requests</small></article>
         </div>
-
-        <div class="next-panel">
-          <div><span class="section-label">LEVEL 4 FOUNDATION</span><h3>Console shell an kammala.</h3><p>Modules suna nan a matsayin tsarin navigation. A matakai na gaba za mu cika su da real Supabase data da actions ba tare da hard-code na system state ba.</p></div>
-          <span class="secure-pill">● SECURE</span>
+        <div class="dashboard-grid">
+          <section class="next-panel command-panel"><div><span class="section-label">COMMAND CENTER</span><h3>Quick actions</h3><p>Waɗannan hanyoyin suna kai ka zuwa modules ɗin system. Za mu cika kowane module a Level ɗinsa tare da real Supabase actions.</p></div><div class="quick-actions"><button class="quick-action" data-page="bots" type="button"><b>＋</b><span>Create / manage bots</span></button><button class="quick-action" data-page="sadeeq" type="button"><b>✦</b><span>Open Sadeeq AI</span></button><button class="quick-action" data-page="keys" type="button"><b>⌘</b><span>Manage API keys</span></button><button class="quick-action" data-page="logs" type="button"><b>◷</b><span>View audit logs</span></button></div></section>
+          <section class="activity-panel"><div class="panel-heading"><div><span class="section-label">LIVE OVERVIEW</span><h3>Recent activity</h3></div><span id="audit-count" class="count-pill">0 today</span></div><div id="recent-logs" class="activity-list"><div class="empty-state">Ana loda audit activity...</div></div></section>
         </div>
+        <div class="system-bar"><div><span class="section-label">SYSTEM HEALTH</span><strong id="health-message">Ana tabbatar da dukkan services...</strong></div><button id="refresh-dashboard" class="secondary-btn" type="button">↻ Refresh</button></div>
       </section>
 
+      <section id="page-bots" class="page hidden" aria-label="Bot management"></section>
       <section id="page-account" class="page hidden" aria-label="Account and Security"></section>
-
-      <section id="page-placeholder" class="page">
-        <div class="placeholder-panel">
-          <span class="section-label">MODULE</span>
-          <h2 id="placeholder-title">Module</h2>
-          <p id="placeholder-text">Wannan module an shirya shi a navigation. Za a gina cikakken functionality a level dinsa.</p>
-          <div class="module-status"><span class="status-dot"></span> Ready for next level</div>
-        </div>
+      <section id="page-placeholder" class="page hidden">
+        <div class="placeholder-panel"><span class="section-label">MODULE</span><h2 id="placeholder-title">Module</h2><p id="placeholder-text">Wannan module an shirya shi a navigation. Za a gina cikakken functionality a level dinsa.</p><div class="module-status"><span class="status-dot"></span> Ready for next level</div></div>
       </section>
     </main>
   </div>
@@ -99,5 +97,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./dashboard.js"></script>
   <script src="./account-security.js"></script>
+  <script src="./bots.js"></script>
 </body>
 </html>
