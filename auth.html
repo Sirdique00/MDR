@@ -29,13 +29,21 @@
         <label>Email<input id="signup-email" type="email" autocomplete="email" required></label>
         <label>Password<input id="signup-password" type="password" autocomplete="new-password" minlength="8" required></label>
         <label>Tabbatar da Password<input id="signup-confirm" type="password" autocomplete="new-password" minlength="8" required></label>
-        <button type="submit" class="primary">Kirkiri Owner Account</button>
+        <button type="submit" class="primary">Ci gaba</button>
       </form>
+
+      <div id="pin-setup-panel" class="pin-panel hidden">
+        <div class="pin-title">Saita Owner PIN</div>
+        <p>Wannan shine mataki na farko na tsaro. Saita PIN mai lambobi 6 zuwa 12. Za a bukaci shi bayan Login.</p>
+        <label>Sabon PIN<input id="setup-pin" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••"></label>
+        <label>Tabbatar da PIN<input id="setup-pin-confirm" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••"></label>
+        <button id="save-pin-btn" class="primary" type="button">Ajiye PIN</button>
+      </div>
 
       <div id="pin-panel" class="pin-panel hidden">
         <div class="pin-title">Owner PIN</div>
-        <p>Shigar da PIN mai lamba 6 domin buɗe Owner Console.</p>
-        <input id="pin" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" aria-label="Owner PIN">
+        <p>Shigar da PIN mai lamba 6 zuwa 12 domin buɗe Owner Console.</p>
+        <input id="pin" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••" aria-label="Owner PIN">
         <button id="pin-btn" class="primary" type="button">Bude Console</button>
       </div>
 
@@ -43,7 +51,7 @@
         <button id="show-login" type="button">Shiga</button>
         <button id="show-signup" type="button" class="hidden">Kirkiri Account</button>
       </div>
-      <small>Ba a adana credentials a browser storage ba.</small>
+      <small>Ba a adana PIN ko credentials a browser storage ba.</small>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
