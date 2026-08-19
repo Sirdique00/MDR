@@ -30,6 +30,12 @@ async function reserveBootstrap(email){
   return !error && (data===true || data?.reserve_owner_bootstrap===true);
 }
 
+async function createConsoleTicket(){
+  const {data,error}=await client.rpc('create_owner_console_ticket');
+  if(error || typeof data!=='string' || data.length!==64) return null;
+  return data;
+}
+
 loginSwitch.onclick=showLogin;
 signupSwitch.onclick=showSignup;
 
@@ -124,8 +130,14 @@ $('pin-btn').onclick=async()=>{
    status(error?.message||'PIN bai yi daidai ba ko an kulle shi.','error');
    btn.disabled=false;return;
  }
- status('An buɗe Owner Console.','ok');
- window.location.href='./dashboard.html';
+
+ status('Ana buɗe Owner Console...','ok');
+ const ticket=await createConsoleTicket();
+ if(!ticket){
+   status('An tabbatar da PIN amma ba a iya bude secure console ticket ba. Gwada kuma.','error');
+   btn.disabled=false;return;
+ }
+ window.location.href='./dashboard.html#ticket='+encodeURIComponent(ticket);
 };
 
 (async()=>{
