@@ -1,67 +1,22 @@
-/* Sadeeq AI Hub • Create Bot / All Bots separation */
+/* Sadeeq AI Hub • All Bots only */
 (function(){
-  'use strict';
-  let lastPage=null;
-
-  function addStyles(){
-    if(document.getElementById('sadeeq-all-bots-styles')) return;
-    const s=document.createElement('style');
-    s.id='sadeeq-all-bots-styles';
-    s.textContent=`
-      #page-bots .bot-view-switch{width:min(100%,820px);margin:0 auto 20px;display:flex;justify-content:center;gap:8px;padding:6px;border:1px solid rgba(143,119,255,.18);border-radius:16px;background:rgba(6,11,28,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
-      #page-bots .bot-view-switch button{flex:1;max-width:240px;border:1px solid transparent;border-radius:11px;padding:11px 16px;background:transparent;color:#8792ad;font:600 12px inherit;cursor:pointer;transition:.22s ease}
-      #page-bots .bot-view-switch button.active{color:#fff;background:linear-gradient(100deg,rgba(104,69,245,.85),rgba(139,77,242,.72));border-color:rgba(165,143,255,.28);box-shadow:0 8px 24px rgba(80,52,210,.2)}
-      #page-bots .bot-view-switch button:hover{color:#fff}
-      #page-bots.bot-show-all .bot-create-grid{display:none!important}
-      #page-bots.bot-show-all .bots-list-panel{display:block!important;animation:allBotsIn .35s ease both}
-      #page-bots.bot-show-create .bot-create-grid{display:grid!important}
-      #page-bots.bot-show-create .bots-list-panel{display:none!important}
-      @keyframes allBotsIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    `;
-    document.head.appendChild(s);
-  }
-
-  function setup(){
-    const page=document.getElementById('page-bots');
-    if(!page || !page.querySelector('.bot-create-grid')) return;
-    addStyles();
-    const module=page.querySelector('.bot-module');
-    if(!module)return;
-
-    let switcher=page.querySelector('.bot-view-switch');
-    if(!switcher){
-      switcher=document.createElement('div');
-      switcher.className='bot-view-switch';
-      switcher.innerHTML='<button type="button" data-bot-view="create">＋ Create Bot</button><button type="button" data-bot-view="all">◈ All Bots</button>';
-      module.insertAdjacentElement('afterend',switcher);
-      switcher.addEventListener('click',function(e){
-        const btn=e.target.closest('[data-bot-view]');
-        if(!btn)return;
-        const view=btn.dataset.botView;
-        page.classList.toggle('bot-show-create',view==='create');
-        page.classList.toggle('bot-show-all',view==='all');
-        switcher.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===btn));
-        if(view==='all'){
-          if(typeof window.loadSadeeqBots==='function') window.loadSadeeqBots();
-          else page.querySelector('#bot-refresh')?.click();
-        }
-        window.scrollTo({top:0,behavior:'smooth'});
-      });
-    }
-
-    if(lastPage!==page){
-      lastPage=page;
-      page.classList.add('bot-show-create');
-      page.classList.remove('bot-show-all');
-      switcher.querySelector('[data-bot-view="create"]')?.classList.add('active');
-    }
-  }
-
-  const observer=new MutationObserver(()=>setup());
-  function boot(){
-    const page=document.getElementById('page-bots');
-    if(page)observer.observe(page,{childList:true,subtree:true});
-    setup();
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+'use strict';
+const page=()=>document.getElementById('page-bots');
+function styles(){if(document.getElementById('all-bots-only-css'))return;const s=document.createElement('style');s.id='all-bots-only-css';s.textContent=`
+#page-bots.all-only .bot-module,#page-bots.all-only .bot-create-grid,#page-bots.all-only .bot-view-switch{display:none!important}
+#page-bots.all-only .bots-list-panel{display:block!important;width:min(100%,900px);margin:0 auto;animation:allOnlyIn .4s ease both}
+#page-bots.all-only .all-bots-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+#page-bots.all-only .all-bots-head h2{margin:5px 0}
+#page-bots.all-only .all-bots-only-list{display:grid;gap:10px}
+#page-bots.all-only .all-only-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 18px;border:1px solid rgba(143,119,255,.16);border-radius:17px;background:linear-gradient(145deg,rgba(8,15,35,.94),rgba(5,9,23,.92));transition:.2s ease;cursor:pointer;animation:allCardIn .35s ease both}
+#page-bots.all-only .all-only-card:hover{transform:translateY(-2px);border-color:rgba(143,119,255,.38);box-shadow:0 13px 32px rgba(0,0,0,.2)}
+#page-bots.all-only .all-only-main{display:flex;align-items:center;gap:13px;min-width:0}.all-only-avatar{width:42px;height:42px;flex:0 0 42px;border-radius:13px;display:grid;place-items:center;color:#f4d37a;background:linear-gradient(145deg,rgba(104,69,245,.2),rgba(194,160,68,.08));border:1px solid rgba(143,119,255,.2)}
+#page-bots.all-only .all-only-info{min-width:0}.all-only-info h4{margin:0 0 4px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.all-only-info p{margin:0;color:#76839d;font-size:10px}.all-only-info code{color:#f4d37a;font-family:ui-monospace,monospace}.all-only-meta{display:flex;align-items:center;gap:12px;color:#6f7c96;font-size:9px;white-space:nowrap}.all-only-menu-wrap{position:relative;flex:0 0 auto}.all-only-dots{width:37px;height:37px;border-radius:11px;border:1px solid rgba(143,119,255,.16);background:#080e21;color:#aeb8d0;font-size:20px;cursor:pointer}.all-only-dots:hover{color:#fff;border-color:rgba(143,119,255,.38)}.all-only-menu{position:absolute;right:0;top:44px;z-index:20;min-width:150px;padding:6px;border:1px solid rgba(143,119,255,.2);border-radius:13px;background:#070d20;box-shadow:0 16px 40px rgba(0,0,0,.45);animation:allMenuIn .15s ease both}.all-only-menu button{display:block;width:100%;border:0;background:transparent;color:#b9c2d5;text-align:left;border-radius:9px;padding:10px;font:600 10px inherit;cursor:pointer}.all-only-menu button:hover{background:rgba(141,114,255,.1);color:#fff}.all-only-menu .danger:hover{background:rgba(244,76,104,.1);color:#ff9cac}.all-only-empty{text-align:center;padding:55px 20px;color:#68758f;border:1px dashed rgba(143,119,255,.16);border-radius:18px}.all-only-status{padding:6px 9px;border-radius:999px;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.all-only-status.active{color:#8ce8c4;background:rgba(67,224,163,.07);border:1px solid rgba(67,224,163,.16)}.all-only-status.disabled{color:#ffd18a;background:rgba(255,181,72,.07);border:1px solid rgba(255,181,72,.16)}.all-only-status.suspended{color:#ff9cac;background:rgba(244,76,104,.07);border:1px solid rgba(244,76,104,.16)}
+@keyframes allOnlyIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes allCardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}@keyframes allMenuIn{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:none}}@media(max-width:650px){#page-bots.all-only .all-bots-head{align-items:flex-start;flex-direction:column}#page-bots.all-only .all-only-card{padding:14px}.all-only-meta span:not(.all-only-status){display:none}}
+`;document.head.appendChild(s)}
+function esc(v){return String(v??'').replace(/[&<>\'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function session(){return typeof window.__sadeeqConsoleSession==='function'?window.__sadeeqConsoleSession():null}
+async function getBots(){const s=session();if(!s)return {data:null,error:{message:'SESSION'}};return window.supabase.createClient('https://bopezesfrmdxiagvvyyh.supabase.co','sb_publishable_eLAz-YGqz0ET4n7t1g9BOA_suPeofcR',{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}}).rpc('list_owner_bots',{p_session:s})}
+async function renderAll(){const p=page();if(!p)return;styles();p.classList.add('all-only');p.classList.remove('bot-show-create','bot-show-all');p.innerHTML=`<div class="all-bots-head"><div><span class="section-label">BOT MANAGEMENT</span><h2>All Bots</h2><p>Jerin dukkan bots ɗin da aka ƙirƙira.</p></div><button id="all-only-refresh" class="secondary-btn" type="button">↻ Refresh</button></div><section class="bots-list-panel"><div id="all-only-list" class="all-bots-only-list"><div class="all-only-empty">Ana loda bots...</div></div></section>`;document.getElementById('all-only-refresh').onclick=renderAll;const {data,error}=await getBots();const root=document.getElementById('all-only-list');if(error){root.innerHTML=`<div class="all-only-empty">${error.message==='SESSION'?'Owner session ta ƙare. Ka sake login.':'Ba a iya loda bots ba. Gwada Refresh.'}</div>`;return}const bots=Array.isArray(data)?data:[];if(!bots.length){root.innerHTML='<div class="all-only-empty">Babu bot tukuna.</div>';return}root.innerHTML=bots.map((b,i)=>`<article class="all-only-card" data-bot-id="${esc(b.bot_id)}" style="animation-delay:${Math.min(i*35,300)}ms"><div class="all-only-main"><div class="all-only-avatar">✦</div><div class="all-only-info"><h4>${esc(b.name)} ${b.pinned?'<span style="color:#f4d37a">★</span>':''}</h4><p>Bot ID: <code>${esc(b.bot_id)}</code></p></div></div><div class="all-only-meta"><span class="all-only-status ${esc(b.status)}">${esc(b.status)}</span><span>Limit ${Number(b.chat_limit).toLocaleString()}</span><div class="all-only-menu-wrap"><button class="all-only-dots" type="button" aria-label="Bot actions">⋮</button><div class="all-only-menu hidden"><button data-all-action="pin">${b.pinned?'Unpin':'Pin'}</button><button data-all-action="delete" class="danger">Delete</button><button data-all-action="cancel">Cancel</button></div></div></div></article>`).join('');root.querySelectorAll('.all-only-card').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('.all-only-menu-wrap'))return;const id=card.dataset.botId;if(id&&typeof window.openSadeeqBotSettings==='function')window.openSadeeqBotSettings(id)});const dots=card.querySelector('.all-only-dots'),menu=card.querySelector('.all-only-menu');dots.onclick=e=>{e.stopPropagation();document.querySelectorAll('.all-only-menu').forEach(m=>{if(m!==menu)m.classList.add('hidden')});menu.classList.toggle('hidden')};card.querySelector('[data-all-action="cancel"]').onclick=e=>{e.stopPropagation();menu.classList.add('hidden')};card.querySelector('[data-all-action="pin"]').onclick=async e=>{e.stopPropagation();const s=session();const c=window.supabase.createClient('https://bopezesfrmdxiagvvyyh.supabase.co','sb_publishable_eLAz-YGqz0ET4n7t1g9BOA_suPeofcR',{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});const {error}=await c.rpc('set_owner_bot_pinned',{p_session:s,p_bot_id:id,p_pinned:!b.pinned});if(!error)renderAll()};card.querySelector('[data-all-action="delete"]').onclick=async e=>{e.stopPropagation();if(!confirm('Ka tabbata kana son delete wannan bot?'))return;const s=session();const c=window.supabase.createClient('https://bopezesfrmdxiagvvyyh.supabase.co','sb_publishable_eLAz-YGqz0ET4n7t1g9BOA_suPeofcR',{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});const {error}=await c.rpc('delete_owner_bot',{p_session:s,p_bot_id:id});if(!error)renderAll()}})}
+window.showSadeeqAllBots=renderAll;
 })();
