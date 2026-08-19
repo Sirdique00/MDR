@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#020713">
+  <title>Sadeeq • Owner Access</title>
+  <link rel="icon" type="image/svg+xml" href="./chagi-logo.svg">
+  <link rel="stylesheet" href="./auth.css">
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="auth-card" aria-label="Owner authentication">
+      <a class="back" href="./index.html">← Komawa</a>
+      <img src="./chagi-logo.svg" class="auth-logo" alt="Chagi">
+      <div class="eyebrow">CHAGI ⚡ SADEEQ</div>
+      <h1 id="title">Shiga cikin tsarin</h1>
+      <p id="subtitle">Wannan yanki na Owner ne kawai.</p>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <form id="login-form" class="form">
+        <label>Email<input id="email" type="email" autocomplete="username" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit" class="primary">Shiga</button>
+      </form>
+
+      <form id="signup-form" class="form hidden">
+        <label>Email<input id="signup-email" type="email" autocomplete="email" required></label>
+        <label>Password<input id="signup-password" type="password" autocomplete="new-password" minlength="8" required></label>
+        <label>Tabbatar da Password<input id="signup-confirm" type="password" autocomplete="new-password" minlength="8" required></label>
+        <button type="submit" class="primary">Kirkiri Owner Account</button>
+      </form>
+
+      <div id="pin-panel" class="pin-panel hidden">
+        <div class="pin-title">Owner PIN</div>
+        <p>Shigar da PIN mai lamba 6 domin buɗe Owner Console.</p>
+        <input id="pin" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" aria-label="Owner PIN">
+        <button id="pin-btn" class="primary" type="button">Bude Console</button>
+      </div>
+
+      <div class="switch-row">
+        <button id="show-login" type="button">Shiga</button>
+        <button id="show-signup" type="button" class="hidden">Kirkiri Account</button>
+      </div>
+      <small>Ba a adana credentials a browser storage ba.</small>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./auth.js"></script>
+</body>
+</html>
