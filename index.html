@@ -3,81 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#050814" />
-  <meta name="description" content="Sadeeq private owner control system" />
-  <title>Sadeeq — Owner Access</title>
+  <meta name="theme-color" content="#030712" />
+  <meta name="description" content="Sadeeq private AI control system" />
+  <title>Sadeeq — Private AI Control System</title>
   <link rel="icon" type="image/svg+xml" href="./chagi-logo.svg" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <main class="auth-shell">
-    <section class="auth-brand" aria-label="Sadeeq brand">
-      <div class="brand-glow"></div>
-      <img class="logo" src="./chagi-logo.svg" alt="Chagi lightning logo" />
-      <div class="brand-name">SADEEQ</div>
-      <div class="brand-subtitle">PRIVATE AI CONTROL SYSTEM</div>
-      <div class="status-pill"><span></span> Owner-only system</div>
-    </section>
+  <main class="landing-shell">
+    <section class="landing-card" aria-label="Sadeeq private system">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+      <div class="grid-glow"></div>
 
-    <section class="auth-panel" aria-labelledby="auth-title">
-      <div class="eyebrow">OWNER CONSOLE</div>
-      <h1 id="auth-title">Private Owner Access</h1>
-      <p class="lead" id="auth-lead">Checking secure owner configuration...</p>
-
-      <div id="setupView" class="auth-view" hidden>
-        <div class="view-badge">FIRST-TIME SETUP</div>
-        <h2>Create Owner Access</h2>
-        <p class="form-help">This setup is intended to run once. The real persistence and authentication will be handled by the secure backend in the authentication integration stage.</p>
-        <form id="setupForm" novalidate>
-          <label>Email<input id="setupEmail" name="email" type="email" autocomplete="email" required placeholder="owner@example.com" /></label>
-          <label>Password<input id="setupPassword" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="Minimum 8 characters" /></label>
-          <label>Confirm Password<input id="setupConfirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required placeholder="Repeat password" /></label>
-          <label>Admin PIN<input id="setupPin" name="pin" inputmode="numeric" type="password" autocomplete="off" minlength="6" maxlength="12" required placeholder="6–12 digits" /></label>
-          <label>Confirm Admin PIN<input id="setupPinConfirm" name="pinConfirm" inputmode="numeric" type="password" autocomplete="off" minlength="6" maxlength="12" required placeholder="Repeat PIN" /></label>
-          <button class="primary-btn" type="submit"><span>Continue Setup</span><span class="arrow">→</span></button>
-        </form>
+      <div class="brand-mark-wrap">
+        <div class="brand-ring"></div>
+        <img class="logo landing-logo" src="./chagi-logo.svg" alt="Chagi lightning logo" />
       </div>
 
-      <div id="pinView" class="auth-view" hidden>
-        <div class="view-badge">SECURITY GATE</div>
-        <h2>Enter Admin PIN</h2>
-        <p class="form-help">Your PIN is the first authentication gate. Email and password are requested only after successful PIN verification.</p>
-        <form id="pinForm" novalidate>
-          <label>Admin PIN<input id="loginPin" name="pin" inputmode="numeric" type="password" autocomplete="off" minlength="6" maxlength="12" required placeholder="Enter your PIN" /></label>
-          <button class="primary-btn" type="submit"><span>Verify PIN</span><span class="arrow">→</span></button>
-        </form>
+      <div class="brand-name landing-name">SADEEQ</div>
+      <div class="brand-subtitle landing-subtitle">PRIVATE AI CONTROL SYSTEM</div>
+
+      <div class="system-status">
+        <span class="status-dot"></span>
+        <span>SYSTEM SECURED</span>
       </div>
 
-      <div id="loginView" class="auth-view" hidden>
-        <div class="view-badge">OWNER LOGIN</div>
-        <h2>Sign in securely</h2>
-        <p class="form-help">Use the owner credentials created during first-time setup.</p>
-        <form id="loginForm" novalidate>
-          <label>Email<input id="loginEmail" name="email" type="email" autocomplete="email" required placeholder="Owner email" /></label>
-          <label>Password<input id="loginPassword" name="password" type="password" autocomplete="current-password" required placeholder="Password" /></label>
-          <button class="primary-btn" type="submit"><span>Sign In</span><span class="arrow">→</span></button>
-        </form>
+      <div class="landing-divider"></div>
+
+      <p class="landing-message">
+        A private control environment for managing AI bots, models, websites and system operations.
+      </p>
+
+      <div class="owner-badge">
+        <span class="owner-icon">⚡</span>
+        <div>
+          <strong>OWNER ONLY</strong>
+          <small>Authorized access required</small>
+        </div>
       </div>
 
-      <div id="lockedView" class="auth-view" hidden>
-        <div class="view-badge danger">ACCESS BLOCKED</div>
-        <h2>Authentication unavailable</h2>
-        <p class="form-help">The secure authentication service is not connected yet. No credential is stored or verified in this browser.</p>
-      </div>
-
-      <div class="security-note">
-        <span class="lock">⌁</span>
-        <span>Credentials are never persisted in browser storage by this interface.</span>
+      <div class="landing-footer">
+        <span>CHAGI ⚡ SADEEQ</span>
+        <span>PRIVATE SYSTEM</span>
       </div>
     </section>
   </main>
 
-  <footer>
-    <span>CHAGI ⚡ SADEEQ</span>
-    <span>Private system · Owner only</span>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="./app.js"></script>
 </body>
 </html>
