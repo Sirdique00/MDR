@@ -35,15 +35,15 @@
       <div id="pin-setup-panel" class="pin-panel hidden">
         <div class="pin-title">Saita Owner PIN</div>
         <p>Wannan shine mataki na farko na tsaro. Saita PIN mai lambobi 6 zuwa 12. Za a bukaci shi bayan Login.</p>
-        <label>Sabon PIN<input id="setup-pin" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••"></label>
-        <label>Tabbatar da PIN<input id="setup-pin-confirm" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••"></label>
+        <label>Sabon PIN<input id="setup-pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="new-password" placeholder="••••••"></label>
+        <label>Tabbatar da PIN<input id="setup-pin-confirm" type="password" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="new-password" placeholder="••••••"></label>
         <button id="save-pin-btn" class="primary" type="button">Ajiye PIN</button>
       </div>
 
       <div id="pin-panel" class="pin-panel hidden">
         <div class="pin-title">Owner PIN</div>
         <p>Shigar da PIN mai lamba 6 zuwa 12 domin buɗe Owner Console.</p>
-        <input id="pin" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="off" placeholder="••••••" aria-label="Owner PIN">
+        <input id="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" maxlength="12" autocomplete="current-password" placeholder="••••••" aria-label="Owner PIN">
         <button id="pin-btn" class="primary" type="button">Bude Console</button>
       </div>
 
