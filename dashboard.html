@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ha">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#050816">
+  <meta name="description" content="Sirdique AI Hub Owner Console">
+  <title>Sirdique AI Hub • Owner Console</title>
+  <link rel="icon" type="image/svg+xml" href="./chagi-logo.svg">
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+  <div id="console-loading" class="gate-screen" aria-live="polite">
+    <img src="./chagi-logo.svg" alt="Chagi" class="gate-logo">
+    <div class="gate-brand">CHAGI ⚡ SADEEQ</div>
+    <div class="gate-spinner"></div>
+    <p>Ana tabbatar da Owner Console...</p>
+  </div>
+
+  <div id="console-denied" class="gate-screen hidden">
+    <img src="./chagi-logo.svg" alt="Chagi" class="gate-logo">
+    <div class="gate-brand">CHAGI ⚡ SADEEQ</div>
+    <h1>Access denied</h1>
+    <p>Wannan Owner Console ne kawai. Ticket din shiga bai inganta ba ko ya kare.</p>
+    <a class="primary-link" href="./auth.html#login">Komawa Login</a>
+  </div>
+
+  <div id="owner-console" class="console hidden">
+    <aside id="sidebar" class="sidebar" aria-label="Owner navigation">
+      <div class="sidebar-top">
+        <div class="mini-brand">
+          <img src="./chagi-logo.svg" alt="Chagi">
+          <div><strong>Sadeeq AI</strong><span>OWNER CONSOLE</span></div>
+        </div>
+        <button id="close-sidebar" class="icon-btn mobile-only" type="button" aria-label="Rufe menu">×</button>
+      </div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-page="home" type="button"><span class="nav-icon">⌂</span><span>Home</span></button>
+        <button class="nav-item" data-page="bots" type="button"><span class="nav-icon">◈</span><span>Bots</span></button>
+        <button class="nav-item" data-page="instructions" type="button"><span class="nav-icon">≡</span><span>Instructions</span></button>
+        <button class="nav-item" data-page="webs" type="button"><span class="nav-icon">◎</span><span>Webs Joined</span></button>
+        <button class="nav-item" data-page="usage" type="button"><span class="nav-icon">▥</span><span>API Bot Usage</span></button>
+        <button class="nav-item" data-page="logs" type="button"><span class="nav-icon">◷</span><span>Audit Logs</span></button>
+        <button class="nav-item" data-page="sadeeq" type="button"><span class="nav-icon">✦</span><span>Sadeeq AI</span></button>
+        <button class="nav-item" data-page="keys" type="button"><span class="nav-icon">⌘</span><span>API Keys</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="nav-item" data-page="settings" type="button"><span class="nav-icon">⚙</span><span>Settings</span></button>
+        <div class="owner-chip"><span class="status-dot"></span><div><strong>Owner only</strong><small>Secure console</small></div></div>
+      </div>
+    </aside>
+
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button id="open-sidebar" class="menu-btn mobile-only" type="button" aria-label="Bude menu">☰</button>
+        <div class="top-title"><span class="top-kicker">PRIVATE AI HUB</span><h1 id="page-title">Home</h1></div>
+        <div class="top-status"><span class="status-dot"></span><span>OWNER</span></div>
+      </header>
+
+      <section id="page-home" class="page active-page">
+        <div class="hero-panel">
+          <div>
+            <span class="section-label">OWNER CONSOLE</span>
+            <h2>Maraba da dawowa, Owner.</h2>
+            <p>Wannan shi ne ginshikin sarrafa Sirdique AI Hub. Daga nan za mu gina bots, instructions, API keys, audit logs da sauran tsarin gudanarwa.</p>
+          </div>
+          <div class="hero-logo-wrap"><img src="./chagi-logo.svg" alt="Chagi"></div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><span>System</span><strong>ONLINE</strong><small>Owner console active</small></article>
+          <article class="stat-card"><span>Security</span><strong>PROTECTED</strong><small>One-time console gate</small></article>
+          <article class="stat-card"><span>Storage</span><strong>SUPABASE</strong><small>System source of truth</small></article>
+        </div>
+
+        <div class="next-panel">
+          <div><span class="section-label">LEVEL 4 FOUNDATION</span><h3>Console shell an kammala.</h3><p>Modules suna nan a matsayin tsarin navigation. A matakai na gaba za mu cika su da real Supabase data da actions ba tare da hard-code na system state ba.</p></div>
+          <span class="secure-pill">● SECURE</span>
+        </div>
+      </section>
+
+      <section id="page-placeholder" class="page">
+        <div class="placeholder-panel">
+          <span class="section-label">MODULE</span>
+          <h2 id="placeholder-title">Module</h2>
+          <p id="placeholder-text">Wannan module an shirya shi a navigation. Za a gina cikakken functionality a level dinsa.</p>
+          <div class="module-status"><span class="status-dot"></span> Ready for next level</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./dashboard.js"></script>
+</body>
+</html>
