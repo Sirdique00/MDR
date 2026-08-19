@@ -7,14 +7,14 @@
     '[data-bot-id]','.bot-card','.bots-list-panel','.bot-list','.bot-id-visual',
     '.bot-auto-points','.bot-auto-point','.bot-info-card','.all-bots-list',
     '.bot-collection','.bot-inventory','#all-only-list','.bot-id-section',
-    '.automatic-bot-id','.your-bots','.bot-section-list'
+    '.automatic-bot-id','.your-bots','.bot-section-list','#bot-refresh'
   ];
 
   function clean(){
     const root=page();
     if(!root) return;
 
-    // Remove known bot-list/card/inventory fragments wherever they appear.
+    // Remove every known bot-list/card/inventory/ID fragment from Create Bot.
     legacySelectors.forEach(selector=>{
       try{ root.querySelectorAll(selector).forEach(el=>el.remove()); }catch(_){ }
     });
@@ -23,18 +23,18 @@
     if(!form) return;
 
     // Keep only the containers that actually lead to the Create Bot form.
-    let keep=new Set([form]);
+    const keep=new Set([form]);
     let node=form.parentElement;
     while(node && node!==root){ keep.add(node); node=node.parentElement; }
 
     [...root.children].forEach(child=>{
       if(keep.has(child)) return;
-      // Feedback and the Refresh button are part of Create Bot itself.
-      if(child.id==='bot-feedback' || child.id==='bot-refresh') return;
+      // Feedback is part of the creation workflow.
+      if(child.id==='bot-feedback') return;
       child.remove();
     });
 
-    // Automatic Bot ID / inventory text must never exist on this page.
+    // No automatic Bot ID, inventory, bot collection, or All Bots text here.
     const forbiddenText=/automatic\s+bot\s+id|bot\s+collection|your\s+bots|all\s+bots|inventory|jerin\s+dukkan\s+bots|bots?\s*\(\s*\d+\s*\)/i;
     [...root.querySelectorAll('*')].forEach(el=>{
       if(el.id==='create-bot-form' || el.closest('#create-bot-form')) return;
