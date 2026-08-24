@@ -39,4 +39,6 @@ async function load(){
  render(Array.isArray(data)?data:[]);
 }
 window.showSadeeqWebs=load;
+// Public dashboard hook. Keep the module-specific name above for backwards compatibility.
+window.showWebsJoined=load;
 })();
