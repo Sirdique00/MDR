@@ -36,6 +36,16 @@ async function createConsoleTicket(){
   return data;
 }
 
+async function auditLogin(success,email){
+  try{
+    const normalized=String(email||'').trim().toLowerCase();
+    const bytes=new TextEncoder().encode(normalized);
+    const digest=await crypto.subtle.digest('SHA-256',bytes);
+    const hash=Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    await client.rpc('record_owner_login_event',{p_success:!!success,p_identifier_hash:hash});
+  }catch(_){/* audit must never block login */}
+}
+
 loginSwitch.onclick=showLogin;
 signupSwitch.onclick=showSignup;
 
@@ -44,7 +54,8 @@ loginForm.addEventListener('submit',async e=>{
  const btn=loginForm.querySelector('button');btn.disabled=true;status('Ana tabbatar da bayanan...');
  const email=$('email').value.trim();
  const {data,error}=await client.auth.signInWithPassword({email,password:$('password').value});
- if(error||!data.session){status('Login ya gaza. Duba email da password.','error');btn.disabled=false;return}
+ if(error||!data.session){await auditLogin(false,email);status('Login ya gaza. Duba email da password.','error');btn.disabled=false;return}
+ await auditLogin(true,email);
 
  const exists=await ownerExists();
  if(!exists){
@@ -52,13 +63,13 @@ loginForm.addEventListener('submit',async e=>{
    if(!reserved){status('Ba a iya fara Owner setup ba. Gwada kuma.','error');btn.disabled=false;return}
    status('Login yayi nasara. Yanzu ka saita PIN dinka.','ok');
    showPinSetup();
-   btn.disabled=false;return;
+   btn.disabled=false;return
  }
 
  if(!(await pinConfigured())){
    status('Account dinka ba shi da PIN tukuna. Saita PIN yanzu.','ok');
    showPinSetup();
-   btn.disabled=false;return;
+   btn.disabled=false;return
  }
 
  status('Login yayi nasara.','ok');
@@ -128,14 +139,14 @@ $('pin-btn').onclick=async()=>{
  const {data,error}=await client.rpc('verify_owner_pin_gate_v2',{p_pin:pin});
  if(error||!(data===true || data?.verify_owner_pin_gate_v2===true)){
    status(error?.message||'PIN bai yi daidai ba ko an kulle shi.','error');
-   btn.disabled=false;return;
+   btn.disabled=false;return
  }
 
  status('Ana buɗe Owner Console...','ok');
  const ticket=await createConsoleTicket();
  if(!ticket){
    status('An tabbatar da PIN amma ba a iya bude secure console ticket ba. Gwada kuma.','error');
-   btn.disabled=false;return;
+   btn.disabled=false;return
  }
  window.location.href='./dashboard.html#ticket='+encodeURIComponent(ticket);
 };
