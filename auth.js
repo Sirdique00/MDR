@@ -125,8 +125,8 @@ $('pin-btn').onclick=async()=>{
  const pin=$('pin').value.trim();
  if(!/^\d{6,12}$/.test(pin)){status('PIN dole ya zama lambobi 6 zuwa 12.','error');return}
  const btn=$('pin-btn');btn.disabled=true;status('Ana tabbatar da PIN...');
- const {data,error}=await client.rpc('verify_owner_pin_gate',{p_pin:pin});
- if(error||!(data===true || data?.verify_owner_pin_gate===true)){
+ const {data,error}=await client.rpc('verify_owner_pin_gate_v2',{p_pin:pin});
+ if(error||!(data===true || data?.verify_owner_pin_gate_v2===true)){
    status(error?.message||'PIN bai yi daidai ba ko an kulle shi.','error');
    btn.disabled=false;return;
  }
