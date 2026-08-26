@@ -8,7 +8,7 @@
     const botId = getBotId();
     if (!botId) return '';
     const base = location.origin + location.pathname.replace(/[^/]*$/, '');
-    const src = `${base}bot.html?bot=${encodeURIComponent(botId)}`;
+    const src = `${base}bot.html?bot_id=${encodeURIComponent(botId)}`;
     return `<iframe src="${src}" title="Sadeeq AI" style="width:100%;height:680px;border:0;border-radius:16px;overflow:hidden" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>`;
   }
 
