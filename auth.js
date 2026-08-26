@@ -1,5 +1,5 @@
-const SUPABASE_URL='https://bopezesfrmdxiagvvyyh.supabase.co';
-const SUPABASE_KEY='sb_publishable_eLAz-YGqz0ET4n7t1g9BOA_suPeofcR';
+const SUPABASE_URL='https://xubufcfhcdtrsrvuulxh.supabase.co';
+const SUPABASE_KEY='sb_publishable_rbrh83jGHubDm-IlVP24DA_bH5kwpE1';
 const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:true}});
 
 const $=id=>document.getElementById(id);
